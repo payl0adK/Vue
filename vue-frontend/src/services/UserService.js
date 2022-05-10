@@ -38,6 +38,7 @@ class UserService {
 
     logout() {
         store.clearAll();
+        window.location = window.location.href;
     }
 }
 

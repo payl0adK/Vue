@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
-import UserService from '../services/UserService'
 import NotificationService from '../services/NotificationService';
+import UserService from '../services/UserService'
 import '../styles/form.css'
-import { ToastContainer } from 'react-toastify';
 var store = require('store'); // Store.js
 
 const LoginForm = function () {
@@ -59,7 +58,7 @@ const LoginForm = function () {
             <div className="form__buttons">
               <button type="button" onClick={formSubmit} className="btn btn-primary">Sign In</button> 
               {store.get("user") != null &&
-                <button button type='button' onClick={logoutUser} className="btn btn-primary">Logout</button>
+                <button type='button' onClick={logoutUser} className="btn btn-primary">Logout</button>
               }
               <div className="form-check form-switch">
                 <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault"/>
@@ -93,17 +92,6 @@ const LoginForm = function () {
         </div>
       </div>
       </div>
-          <ToastContainer
-          position="bottom-right"
-          autoClose={4000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          />
     </div>
     
   )
