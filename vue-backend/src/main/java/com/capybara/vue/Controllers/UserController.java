@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("api/user")
+@CrossOrigin
 public class UserController {
 
   @Autowired
@@ -36,6 +38,7 @@ public class UserController {
     User user = new User(username, password);
     if (userService.loadUserByUsername(username) == null) {
       userRepository.save(user);
+      response.setStatus(200);
     } else {
       response.sendError(401, "User exists");
     }

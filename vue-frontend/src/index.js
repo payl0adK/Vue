@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from './components/pages/Home';
 import Navigation from './components/Navigation';
 import LoginForm from './components/LoginForm';
+import ToastContainer from "react-toastify";
 ReactDOM.render(
   <Router>
     <Navigation/>

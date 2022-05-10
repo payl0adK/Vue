@@ -1,7 +1,8 @@
 import React from 'react'
-
+var store = require('store');
 const Navigation = () => {
   return (
+  <div className="container">
     <ul className="nav">
   <li className="nav-item">
     <a className="nav-link active" aria-current="page" href="#">Active</a>
@@ -13,12 +14,24 @@ const Navigation = () => {
     <a className="nav-link" href="/app">App</a>
   </li>
   <li className="nav-item">
-    <a className="nav-link" href="/login">Sign in</a>
+    <a className="nav-link" href="/login">Login/Register</a>
   </li>
-  <li className="nav-item">
-    <a className="nav-link disabled">Disabled</a>
+  
+  {store.get("user") != null && 
+  <li className="nav-item" if="">
+    <a className="nav-link" href="/profile">Profile</a>
   </li>
+  }
+
+ {store.get("user") != null && 
+  <li className="nav-item" if="">
+    <a className="nav-link" href="/logout">logout</a>
+  </li>
+  }
+  
 </ul>
+  </div>
+  
   )
 }
 

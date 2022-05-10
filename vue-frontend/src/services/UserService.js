@@ -1,9 +1,8 @@
 import axios from "axios";
+import NotificationService from "./NotificationService";
+
 var store = require('store');
 const API_URL = "http://localhost:8080/api/"
-
-
-
 
 class UserService {
     login(username, password) {
@@ -13,16 +12,32 @@ class UserService {
             password: password
         })
         .then(function (response) {
-            alert(response.data.token);
+            NotificationService.sendSuccessNotification("Success", 3000);
             store.set("user", {
                 jwt: response.data.token,
                 user: username
             });
-            console.log(response);
+            window.location = window.location.href // Reload page without request
         }).catch(function (error) {
-            console.log(API_URL + "auth/login");
-            console.log(error);
+            NotificationService.sendErrorNotification(error.response.data.message, 3000);
         })
+    }
+
+    createUser(username, password) {
+        axios.post(API_URL + "user", {
+            username: username,
+            password: password
+        })
+        .then(function (response) {})
+        .catch(function (error) {
+            NotificationService.sendErrorNotification(error.response.data.message, 3000);
+        })
+        this.login(username, password);
+    }
+
+
+    logout() {
+        store.clearAll();
     }
 }
 
