@@ -4,6 +4,10 @@ import UserService from '../services/UserService'
 import '../styles/form.css'
 var store = require('store'); // Store.js
 
+if (store.get("token") != null) {
+  UserService.getUserInfo(store.get("token").jwt);
+}
+
 const LoginForm = function () {
   
   const [username, setUsername] = useState("");
@@ -11,8 +15,8 @@ const LoginForm = function () {
 
   var UserNickname;
   
-  if (store.get("user") != null) {
-    UserNickname = store.get("user").user;
+  if (store.get("token") != null) {
+    UserNickname = store.get("token").jwt;
   }
   function formSubmit () {
     UserService.login(username, password);
@@ -23,7 +27,7 @@ const LoginForm = function () {
   function logoutUser() {
     UserService.logout();
   }
-  
+
   return (
     <div className="container">
       <h1>{UserNickname}</h1>
@@ -57,7 +61,7 @@ const LoginForm = function () {
             </div>
             <div className="form__buttons">
               <button type="button" onClick={formSubmit} className="btn btn-primary">Sign In</button> 
-              {store.get("user") != null &&
+              {store.get("token") != null &&
                 <button type='button' onClick={logoutUser} className="btn btn-primary">Logout</button>
               }
               <div className="form-check form-switch">

@@ -31,7 +31,7 @@ public class VueApplication {
     List<Authority> authorities = new ArrayList<>();
     authorities.add(new Authority("USER", "User role"));
     authorities.add(new Authority("ADMIN", "Admin role"));
-    userRepository.save(new User("capybara", password, authorities));
+    userRepository.save(new User("capybara", password,   authorities));
 
   }
 }

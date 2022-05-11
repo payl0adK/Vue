@@ -57,7 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .exceptionHandling()
         .authenticationEntryPoint(authenticationEntryPoint).and()
         .authorizeRequests(
-            (request) -> request.antMatchers("/api/auth/login", "/api/user").permitAll()
+            (request) -> request.antMatchers("/api/auth/login", "/api/user", "/api/auth/userinfo").permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll().anyRequest().authenticated())
         .addFilterBefore(new JWTAuthenticationFilter(userService, jWTTokenHelper),
             UsernamePasswordAuthenticationFilter.class);

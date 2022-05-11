@@ -23,12 +23,14 @@
 .nav_container {
     position: absolute;
     top: 50%;
-    height: 278px;
+    padding: 60px;
+    border-radius: 20px;
+    background-color: white;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%)
 }
-* {
-    outline: none;
-    box-shadow: none;
+input, button {
+    outline: none!important;
+    box-shadow: none!important;
 }
