@@ -17,13 +17,13 @@ const Navigation = () => {
     <a className="nav-link" href="/login">Login/Register</a>
   </li>
   
-  {store.get("user") != null && 
+  {store.get("token") != null && 
   <li className="nav-item" if="">
     <a className="nav-link" href="/profile">Profile</a>
   </li>
   }
 
- {store.get("user") != null && 
+ {store.get("token") != null && 
   <li className="nav-item" if="">
     <a className="nav-link" href="/logout">logout</a>
   </li>

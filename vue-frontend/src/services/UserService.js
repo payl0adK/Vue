@@ -1,6 +1,7 @@
 import axios from "axios";
 import NotificationService from "./NotificationService";
 import User from "../models/User";
+
 var store = require('store');
 const API_URL = "http://localhost:8080/api/"
 
@@ -36,29 +37,24 @@ class UserService {
     }
 
 
+   
     getUserInfo(jwt) {
         var bearer = 'Bearer' + " " + jwt; 
-        var username;
-        var user_roles = [];
+   
         axios.get(API_URL + "auth/userinfo", {
             headers: {
                 Authorization: bearer
             }
         })
-        .then(function (response) {
-            username = response.data.username;
-            // Get User roles
-            for (var i = 0; i < response.data.roles.length; i++) {
-                user_roles.push(response.data.roles[i].roleName);
-            }
-            var user = new User(username, user_roles);
-            return user;
+        .then((response) => {
+            
         })
         .catch(function (error) {
-            console.log(error.response);
+            NotificationService.sendErrorNotification(error.response.data.message, 3000);
         })
-     
-    
+
+       
+        
     }
 
     logout() {

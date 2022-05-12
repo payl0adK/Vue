@@ -5,10 +5,13 @@ class User {
     username;
     authorities;
 
-    constructor(username, authorities) {
-        this.username = username;
-        this.authorities = authorities;
-    };
+    constructor() {
+        this.username = "";
+        this.authorities = ["USER"];
+    }
+
+    
+    
 }
 
 export default User;
