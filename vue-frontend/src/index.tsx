@@ -19,7 +19,7 @@ ReactDOM.render(
     <Route path="/" element={<Home/>} />
     <Route path="/app" element={<App />} />
     <Route path="/login" element={<LoginForm />} />
-    <Route path="/profile" element={<Profile/>} />
+    <Route path="/profile/:username" element={<Profile/>} />
   </Routes>
   <ToastContainer
           position="bottom-right"

@@ -29,7 +29,7 @@ class UserService {
             password: password
         })
         .then(function (response) {
-            NotificationService.sendErrorNotification("Success", 3000);
+            NotificationService.sendSuccessNotification("Success", 3000);
         })
         .catch(function (error) {
             NotificationService.sendErrorNotification(error.response.data.message, 3000);
@@ -38,10 +38,10 @@ class UserService {
 
 
    
-    getUserInfo(jwt) {
+    async getUserInfo(jwt) {
         var bearer = 'Bearer' + " " + jwt; 
    
-        axios.get(API_URL + "auth/userinfo", {
+        await axios.get(API_URL + "auth/userinfo", {
             headers: {
                 Authorization: bearer
             }

@@ -2,7 +2,8 @@ import React from 'react'
 var store = require('store');
 const Navigation = () => {
   return (
-  <div className="container">
+  <div className="container_fluid" id="navfluid">
+    <div className="container">
     <ul className="nav">
   <li className="nav-item">
     <a className="nav-link active" aria-current="page" href="#">Active</a>
@@ -23,14 +24,11 @@ const Navigation = () => {
   </li>
   }
 
- {store.get("token") != null && 
-  <li className="nav-item" if="">
-    <a className="nav-link" href="/logout">logout</a>
-  </li>
-  }
   
 </ul>
   </div>
+  </div>
+  
   
   )
 }

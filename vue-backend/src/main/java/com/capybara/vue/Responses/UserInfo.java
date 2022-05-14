@@ -22,5 +22,11 @@ public class UserInfo {
     this.roles = roles;
   }
 
+  public UserInfo() {
 
+  }
+  public UserInfo(String username, Object roles) {
+    this.username = username;
+    this.roles = roles;
+  }
 }
