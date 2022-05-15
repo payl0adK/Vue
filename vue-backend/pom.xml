@@ -12,6 +12,7 @@
   <groupId>com.capybara</groupId>
   <artifactId>Vue</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
   <name>Vue</name>
   <description>Vue</description>
   <properties>

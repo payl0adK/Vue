@@ -13,11 +13,6 @@ const LoginForm = function () {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  var UserNickname;
-  
-  if (store.get("token") != null) {
-    UserNickname = store.get("token").jwt;
-  }
   function formSubmit () {
     UserService.login(username, password);
   }
@@ -30,7 +25,6 @@ const LoginForm = function () {
 
   return (
     <div className="container">
-      <h1>{UserNickname}</h1>
       <div className="nav_container">
       <ul className="nav nav-pills" id="pills-tab" role="tablist">
         <li className="nav-item w-50" role="presentation">

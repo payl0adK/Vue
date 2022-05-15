@@ -10,7 +10,9 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -56,8 +58,12 @@ public class UserController {
   @GetMapping
   public ResponseEntity<?> getUserinfoByName(@RequestParam(name = "username") String username) {
     User user = userRepositoryJPA.findByUsername(username);
-    UserInfo userinfo = new UserInfo(username, user.getAuthorities().toArray());
-    return ResponseEntity.ok(userinfo);
+    if (user != null) {
+      UserInfo userinfo = new UserInfo(username, user.getAuthorities().toArray());
+      return ResponseEntity.ok(userinfo);
+    } else {
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
   }
 
 }

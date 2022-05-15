@@ -5,6 +5,9 @@
     margin: 0 auto;
     padding-top: 20px;
 }
+a:hover {
+    cursor: pointer;
+}
 .form__inputs {
     display: flex;
     flex-direction: column;
