@@ -6,3 +6,6 @@
     color: black;
     font-weight: bold;
 }
+.nav {
+    justify-content: space-evenly;
+}

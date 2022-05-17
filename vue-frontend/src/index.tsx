@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 
 // Pages
-import Home from './components/pages/Home'
+import {Home} from './components/pages/Home'
 import Profile from './components/pages/Profile'
 
 // Components
@@ -14,6 +14,8 @@ import LoginForm from './components/LoginForm'
 import {ToastContainer} from "react-toastify"
 
 ReactDOM.render(
+  <React.StrictMode>
+
   <Router>
     <Navigation/>
   <Routes>
@@ -32,7 +34,8 @@ ReactDOM.render(
           draggable
           pauseOnHover
   />
-</Router>,
+</Router>
+</React.StrictMode>,
   document.getElementById('root')
 );
 

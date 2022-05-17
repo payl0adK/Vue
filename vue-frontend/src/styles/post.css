@@ -1,0 +1,42 @@
+.post {
+    width: 780px;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 20px;
+}
+
+.post__bottom {
+    display: flex;
+    justify-content: space-between;
+}
+.post__bottom-buttons i, .post__bottom-actions i {
+    margin-right: 10px;
+}
+.reputation {
+    margin-right: 10px;
+}
+.post__header {
+    display: flex;
+}
+.post__header * {
+    margin-right: 20px;
+}
+
+.post__body-header {
+    font-weight: bold;
+}
+.post__short-description {
+    font-weight: 300;
+}
+.post__image img {
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    border-radius: 20px;
+    object-fit: contain;
+    width: 100%;
+    max-height: 500px;
+    padding: 0px!important;
+}

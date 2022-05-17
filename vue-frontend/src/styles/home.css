@@ -1,0 +1,24 @@
+.home_root .container {
+    display: flex;
+    flex-direction: column;
+}
+
+.update {
+    background-color: white;
+    padding: 20px;
+    border-radius: 20px;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    justify-self: center;
+    width: 780px;
+}
+.update__header-date {
+    font-weight: 700;
+}
+.update__header h1 {
+    font-weight: bold;
+}
+.update__header-text {
+    font-weight: 300;
+}
