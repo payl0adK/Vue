@@ -29,6 +29,11 @@ public class User implements UserDetails {
   @Column(name = "USER_PASSWORD")
   private String password;
 
+  @Column(name = "USER_AVATAR_URL")
+  private String avatarUrl;
+
+
+
   @Column(name = "enabled")
   private boolean enabled = true;
   // TODO: FIX ROLES ID
@@ -91,6 +96,13 @@ public class User implements UserDetails {
     return username;
   }
 
+  public String getAvatarUrl() {
+    return avatarUrl;
+  }
+
+  public void setAvatarUrl(String avatarUrl) {
+    this.avatarUrl = avatarUrl;
+  }
   @Override
   public boolean isAccountNonExpired() {
     return true;
