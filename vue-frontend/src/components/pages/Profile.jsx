@@ -51,6 +51,11 @@ const Profile = function () {
         })
     }
 
+    const uploadAvatar = () => {
+        // TODO
+        
+    }
+
     return (
         <div className="profile_root">
 
@@ -58,6 +63,10 @@ const Profile = function () {
             <div className="profile__info">
                 <div className="profile__avatar">
                     <img src="avatar" alt="" />
+                    {user.username == authorizedUser.username &&
+                       <button className='btn btn-dark'>Change avatar</button> 
+                    }
+                    
                 </div>
                 <div className="profile__info__credentials">
                     <div className="profile__info--user">
@@ -67,6 +76,11 @@ const Profile = function () {
                     <div className="profile__info-buttons">
                         <button type='button' className='btn btn-outline-dark'>Edit Profile</button>
                         <button type='button' className='btn btn-outline-dark'>Write a post</button>
+                        <form class="mb-3">
+                            <label for="formFile" class="form-label">Default file input example</label>
+                            <input class="form-control" type="file" id="formFile"/>
+                            <button onClick={}></button>
+                        </form>
                     </div>
                     }
                 </div>

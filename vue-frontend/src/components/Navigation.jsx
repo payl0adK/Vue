@@ -3,6 +3,7 @@ import axios from 'axios'
 import {useState, useEffect} from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
 import "../styles/nav.css"
+import UserService from '../services/UserService'
 
 var store = require('store');
 const Navigation = () => {
@@ -10,7 +11,7 @@ const Navigation = () => {
   const router = useNavigate();
   const [authorizedUser, setAuthorizedUser] = useState("");  
   useEffect(() => {
-    if (store.get('token') != null) {
+    if (UserService.userIsAuthorized()) {
       getAuthorizedUser();
     }
     
@@ -25,6 +26,7 @@ const Navigation = () => {
     })
     .then((response) => {    
     setAuthorizedUser(response.data);
+    
     })
     
 }
@@ -39,7 +41,7 @@ const Navigation = () => {
           <a className="nav-link" onClick={() => router("/login")}>Sign in/up</a>
         </li>
         
-        {store.get("token") != null && 
+        {UserService.userIsAuthorized() &&
         <li className="nav-item" if="">
           <a className="nav-link" onClick={() => router("/profile/" + authorizedUser.username)}>Profile</a>
         </li>

@@ -4,7 +4,6 @@ package com.capybara.vue.Services;
 import com.capybara.vue.Models.FileDB;
 import com.capybara.vue.Repositories.FileDBRepositoryJPA;
 import java.io.IOException;
-import java.util.stream.Stream;
 import org.springframework.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +18,7 @@ public class FileStorageService {
   public FileDB store (MultipartFile file) throws IOException {
     String fileName = StringUtils.cleanPath(file.getOriginalFilename());
     FileDB fileDB = new FileDB(fileName, file.getContentType(), file.getBytes());
+
     return fileDBRepositoryJPA.save(fileDB);
   }
 

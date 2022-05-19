@@ -62,7 +62,13 @@ class UserService {
         window.location = window.location.href;
     }
 
-       
+
+    userIsAuthorized() {
+        if (store.get('token') != null) {
+            return true;
+        } 
+        return false;
+    }
 }
 
 export default new UserService();

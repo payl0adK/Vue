@@ -2,6 +2,7 @@ package com.capybara.vue.Controllers;
 
 
 import com.capybara.vue.Models.FileDB;
+import com.capybara.vue.Models.User;
 import com.capybara.vue.Responses.MessageResponse;
 import com.capybara.vue.Services.FileStorageService;
 import org.springframework.beans.factory.annotation.Autowired;

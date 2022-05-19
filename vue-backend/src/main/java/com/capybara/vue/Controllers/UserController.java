@@ -1,12 +1,16 @@
 package com.capybara.vue.Controllers;
 
+import com.capybara.vue.Models.FileDB;
 import com.capybara.vue.Models.User;
 import com.capybara.vue.Repositories.UserRepository;
 import com.capybara.vue.Repositories.UserRepositoryJPA;
 import com.capybara.vue.Requests.AuthenticationRequest;
+import com.capybara.vue.Responses.MessageResponse;
 import com.capybara.vue.Responses.UserInfo;
+import com.capybara.vue.Services.FileStorageService;
 import com.capybara.vue.Services.UserService;
 import java.io.IOException;
+import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +26,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping("api/user")
@@ -35,6 +41,9 @@ public class UserController {
   private UserRepositoryJPA userRepositoryJPA;
   @Autowired
   private UserService userService;
+
+  @Autowired
+  private FileStorageService fileStorageService;
 
   private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -64,6 +73,37 @@ public class UserController {
     } else {
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+  }
+
+  @PostMapping("/avatar")
+  public ResponseEntity<?> uploadAvatar(@RequestParam("file") MultipartFile file,
+      @RequestParam("username") String username) {
+    System.out.println("Type: " + file.getContentType());
+    if (!Objects.equals(file.getContentType(), "image/png")) {
+      return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE)
+          .body(new MessageResponse("Wrong type"));
+    }
+    String message = "";
+    try {
+      FileDB fileDB =  fileStorageService.store(file);
+      message = "Avatar successfully changed";
+      String fileDownloadUrl = ServletUriComponentsBuilder
+          .fromCurrentContextPath()
+          .path("/files/")
+          .path(fileDB.getId())
+          .toUriString();
+
+      User user = (User) userService.loadUserByUsername(username);
+      user.setAvatarUrl(fileDownloadUrl);
+      userRepository.save(user);
+      return ResponseEntity.status(HttpStatus.OK)
+          .body(new MessageResponse(message));
+    } catch (Exception e) {
+      message = "Couldn't upload an avatar";
+      return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED)
+          .body(new MessageResponse(message));
+    }
+
   }
 
 }
