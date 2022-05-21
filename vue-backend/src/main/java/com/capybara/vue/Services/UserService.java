@@ -1,5 +1,6 @@
 package com.capybara.vue.Services;
 
+import com.capybara.vue.Models.User;
 import com.capybara.vue.Repositories.UserRepositoryJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,7 +15,7 @@ public class UserService implements UserDetailsService {
   private UserRepositoryJPA userRepositoryJPA;
 
   @Override
-  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+  public UserDetails loadUserByUsername(String username){
     return userRepositoryJPA.findByUsername(username);
   }
 }

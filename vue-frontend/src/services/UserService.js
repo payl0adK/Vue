@@ -69,6 +69,12 @@ class UserService {
         } 
         return false;
     }
+
+    userExists(name) {
+        axios.get("http://localhost:8080/api/user/exists", {
+            username: name
+        })
+    }
 }
 
 export default new UserService();

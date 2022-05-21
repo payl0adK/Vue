@@ -5,10 +5,11 @@ import User from "../../models/User"
 import axios from "axios";
 import {useParams} from "react-router-dom"
 import NotificationService from '../../services/NotificationService';
-
+import Modal from "../Modal"
 var store = require('store');
 
 const Profile = function () {
+    const [modalActive, setModalActive] = useState(false);
     const [authorizedUser, setAuthorizedUser] = useState("");  
     const [user, setUser] = useState("");
     const [username, setUsername] = useState("");
@@ -64,7 +65,7 @@ const Profile = function () {
                 <div className="profile__avatar">
                     <img src="avatar" alt="" />
                     {user.username == authorizedUser.username &&
-                       <button className='btn btn-dark'>Change avatar</button> 
+                       <button className='btn btn-dark' onClick={() => setModalActive(true)}>Change avatar</button> 
                     }
                     
                 </div>
@@ -76,11 +77,6 @@ const Profile = function () {
                     <div className="profile__info-buttons">
                         <button type='button' className='btn btn-outline-dark'>Edit Profile</button>
                         <button type='button' className='btn btn-outline-dark'>Write a post</button>
-                        <form class="mb-3">
-                            <label for="formFile" class="form-label">Default file input example</label>
-                            <input class="form-control" type="file" id="formFile"/>
-                            <button onClick={uploadAvatar()}></button>
-                        </form>
                     </div>
                     }
                 </div>
@@ -109,7 +105,9 @@ const Profile = function () {
                 </div>
             </div>
         </div>
-        
+        <Modal active={modalActive} setActive={setModalActive}>
+
+        </Modal>
     </div>)
 }
 

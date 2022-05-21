@@ -6,6 +6,7 @@ import com.capybara.vue.Repositories.UserRepository;
 import com.capybara.vue.Repositories.UserRepositoryJPA;
 import com.capybara.vue.Requests.AuthenticationRequest;
 import com.capybara.vue.Responses.MessageResponse;
+import com.capybara.vue.Responses.UserExistsResponse;
 import com.capybara.vue.Responses.UserInfo;
 import com.capybara.vue.Services.FileStorageService;
 import com.capybara.vue.Services.UserService;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.ResponseEntity.BodyBuilder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -104,6 +106,16 @@ public class UserController {
           .body(new MessageResponse(message));
     }
 
+  }
+
+  @GetMapping("/exists")
+  public ResponseEntity<?> userExists(@RequestParam(name = "username") String username) {
+    try {
+      User user = userRepositoryJPA.findByUsername(username);
+      return ResponseEntity.status(200).body(new UserExistsResponse(true));
+    } catch (UsernameNotFoundException e) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new UserExistsResponse(false));
+    }
   }
 
 }
