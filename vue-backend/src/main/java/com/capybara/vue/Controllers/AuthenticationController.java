@@ -57,10 +57,9 @@ public class AuthenticationController {
 
   @GetMapping("/auth/userinfo")
   public ResponseEntity<?> getUserInfo(Principal user) {
-    User userObj = (User) userDetailsService.loadUserByUsername(user.getName());
-    UserInfo userInfo = new UserInfo();
-    userInfo.setUsername(userObj.getUsername());
-    userInfo.setRoles(userObj.getAuthorities().toArray());
+    User userObject = (User) userDetailsService.loadUserByUsername(user.getName());
+    UserInfo userInfo = new UserInfo(userObject.getId(), userObject.getUsername(), userObject.getPassword(), userObject.getAvatarUrl(),
+        userObject.getAuthorities().toArray(), userObject.isEnabled());
 
     return ResponseEntity.ok(userInfo);
 

@@ -1,4 +1,3 @@
-
 import Authority from "./Authority";
 
 class User {

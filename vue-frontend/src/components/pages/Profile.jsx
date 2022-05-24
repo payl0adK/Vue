@@ -6,6 +6,7 @@ import axios from "axios";
 import {useParams} from "react-router-dom"
 import NotificationService from '../../services/NotificationService';
 import Modal from "../Modal"
+import UploadFilesService from '../../services/UploadFilesService';
 var store = require('store');
 
 const Profile = function () {
@@ -17,7 +18,13 @@ const Profile = function () {
     const parameters = useParams();
     const url = "http://localhost:8080/api/auth/userinfo";
     
-    
+
+    const [state, setState] = useState({
+        progress: 0,
+        selectedFile: undefined,
+        message: ""
+    });
+
     useEffect(() => {
         getUserProfile();
         getAuthorizedUser();
@@ -32,7 +39,10 @@ const Profile = function () {
         })
         .then((response) => {    
         setAuthorizedUser(response.data);
+        console.log(response.data);
         })
+
+        console.log("Avatar url:" + authorizedUser.avatarUrl);
         
     }
     
@@ -56,14 +66,26 @@ const Profile = function () {
         // TODO
         
     }
-
+    const handleFileInput = (e) => {
+        e.preventDefault();
+        const file = e.target.files[0];
+        UploadFilesService.upload(file, (event) => {
+            setState({
+                progress: Math.round((100 * event.loaded) / event.total)
+            });
+            console.log(state.progress);
+        });
+        
+        console.log(e.target.files[0]);
+        console.log(state.progress);
+    }
     return (
         <div className="profile_root">
 
         <div className="container">
             <div className="profile__info">
                 <div className="profile__avatar">
-                    <img src="avatar" alt="" />
+                    <img src={user.avatarUrl ? user.avatarUrl : "avatar"} alt="" />
                     {user.username == authorizedUser.username &&
                        <button className='btn btn-dark' onClick={() => setModalActive(true)}>Change avatar</button> 
                     }
@@ -106,7 +128,12 @@ const Profile = function () {
             </div>
         </div>
         <Modal active={modalActive} setActive={setModalActive}>
-
+            <div className="modal__upload--header">
+                <h2>Upload an avatar</h2>
+                <form>
+                    <input type="file" onChange={handleFileInput}/>
+                </form>
+            </div>
         </Modal>
     </div>)
 }

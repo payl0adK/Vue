@@ -5,11 +5,15 @@ class UploadFilesService {
     upload (file, onUploadProgress) {
         let formData = new FormData();
         formData.append("file", file);
-        return axios.post("/upload", formData, {
+        formData.append("username", "capybara");
+        return axios.post("http://localhost:8080/api/user/avatar", formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
             },
             onUploadProgress,
+        })
+        .then((response) => {
+            console.log(response);
         });
     }
 

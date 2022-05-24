@@ -70,7 +70,8 @@ public class UserController {
   public ResponseEntity<?> getUserinfoByName(@RequestParam(name = "username") String username) {
     User user = userRepositoryJPA.findByUsername(username);
     if (user != null) {
-      UserInfo userinfo = new UserInfo(username, user.getAuthorities().toArray());
+      UserInfo userinfo = new UserInfo(user.getId(), user.getUsername(), user.getPassword(),
+          user.getAvatarUrl(), user.getAuthorities().toArray(), user.isEnabled());
       return ResponseEntity.ok(userinfo);
     } else {
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -81,7 +82,7 @@ public class UserController {
   public ResponseEntity<?> uploadAvatar(@RequestParam("file") MultipartFile file,
       @RequestParam("username") String username) {
     System.out.println("Type: " + file.getContentType());
-    if (!Objects.equals(file.getContentType(), "image/png")) {
+    if (!Objects.equals(file.getContentType(), "image/jpeg")) {
       return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE)
           .body(new MessageResponse("Wrong type"));
     }
@@ -97,6 +98,7 @@ public class UserController {
 
       User user = (User) userService.loadUserByUsername(username);
       user.setAvatarUrl(fileDownloadUrl);
+      System.out.println(user.getAvatarUrl());
       userRepository.save(user);
       return ResponseEntity.status(HttpStatus.OK)
           .body(new MessageResponse(message));
