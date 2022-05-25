@@ -17,7 +17,6 @@
     padding: 20px;
     border-radius: 20px;
     background-color: white;
-    height: 400px;
     width: 400px;
     transition: 0.5s;
     transform: scale(0.5);
@@ -34,4 +33,35 @@
 
 .modal__upload--header h2 {
     text-align: center;
+}
+
+.progress {
+    width: 100%;
+    height: 30px;
+    font-size: 14px;
+}
+.uploadfile__avatar {
+    width: 220px;
+    height: 220px;
+    display: flex;
+    border-radius: 50%;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.inputFileBtn input {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    opacity: 0;
+    user-select: none;
+    cursor: pointer;
+}
+.inputFileBtn::-webkit-file-upload-button {
+    visibility: hidden;
+    user-select: none;
+}
+.inputFileBtn span {
+    display: block;
+    margin-top: -30px;
 }

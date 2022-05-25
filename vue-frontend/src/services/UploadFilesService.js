@@ -1,11 +1,12 @@
 import axios from "axios"
+import NotificationService from "./NotificationService";
 
 class UploadFilesService {
 
-    upload (file, onUploadProgress) {
+    upload (file, username, onUploadProgress) {
         let formData = new FormData();
         formData.append("file", file);
-        formData.append("username", "capybara");
+        formData.append("username", username);
         return axios.post("http://localhost:8080/api/user/avatar", formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
@@ -13,8 +14,14 @@ class UploadFilesService {
             onUploadProgress,
         })
         .then((response) => {
-            console.log(response);
+            NotificationService.sendSuccessNotification("Avatar successfully uploaded", 3000);
+        })
+        .catch((error) => {
+            NotificationService.sendErrorNotification(error.response.data.message, 3000);
         });
+
+        
+
     }
 
     getFiles() {

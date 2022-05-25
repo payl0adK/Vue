@@ -22,7 +22,8 @@ const Profile = function () {
     const [state, setState] = useState({
         progress: 0,
         selectedFile: undefined,
-        message: ""
+        message: "",
+        previewImage: undefined
     });
 
     useEffect(() => {
@@ -39,10 +40,7 @@ const Profile = function () {
         })
         .then((response) => {    
         setAuthorizedUser(response.data);
-        console.log(response.data);
         })
-
-        console.log("Avatar url:" + authorizedUser.avatarUrl);
         
     }
     
@@ -66,18 +64,31 @@ const Profile = function () {
         // TODO
         
     }
-    const handleFileInput = (e) => {
+    const submitHandler = (e) => {
         e.preventDefault();
-        const file = e.target.files[0];
-        UploadFilesService.upload(file, (event) => {
+
+        UploadFilesService.upload(state.selectedFile, authorizedUser.username, (event) => {
             setState({
-                progress: Math.round((100 * event.loaded) / event.total)
+                progress: Math.round((100 * event.loaded) / event.total),
+                selectedFile: state.selectedFile,
+                previewImage: state.previewImage
             });
-            console.log(state.progress);
-        });
-        
-        console.log(e.target.files[0]);
-        console.log(state.progress);
+        });  
+
+    }
+    const handleFileInput = (e) => {
+        if (e.target.files.length > 1) {
+            NotificationService.sendErrorNotification("Too much files!", 3000);
+        } else {
+          e.preventDefault();
+
+        const file = e.target.files[0];
+        const previewUrl = URL.createObjectURL(file);
+        setState({
+                selectedFile: file,
+                previewImage: previewUrl
+            })
+        }
     }
     return (
         <div className="profile_root">
@@ -131,9 +142,29 @@ const Profile = function () {
             <div className="modal__upload--header">
                 <h2>Upload an avatar</h2>
                 <form>
-                    <input type="file" onChange={handleFileInput}/>
+                    <img className="uploadfile__avatar" src={state.previewImage ? state.previewImage : user.avatarUrl} alt="" />
+                    <div className="progress">
+                        <div 
+                        className="progress-bar bg-dark" 
+                        role="progressbar" 
+                        style={{ width: state.progress + "%" }}
+                        aria-valuenow={state.progress} 
+                        aria-valuemin="0" 
+                        aria-valuemax="100">{state.progress}</div>
+                    </div>
+                    <button 
+                    type="button"
+                    className='btn btn-dark inputFileBtn'
+                    style={{ width: 100 + "%", marginTop: 10 + "px" }}><input type="file" onChange={handleFileInput}/><span>Select</span></button>
+                    <button 
+                    className="btn btn-dark"
+                    style={{ width: 100 + "%", marginTop: 10 + "px"}}
+                    disabled={!state.selectedFile} 
+                    onClick={submitHandler}
+                    type="submit">Upload</button>
                 </form>
             </div>
+
         </Modal>
     </div>)
 }
