@@ -1,6 +1,6 @@
 import Authority from "./Authority";
 
-class User {
+export default class User {
     private _id: BigInteger;
     private _username: string;
     private _password: string;
