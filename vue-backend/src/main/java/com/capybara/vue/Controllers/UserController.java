@@ -81,8 +81,7 @@ public class UserController {
   @PostMapping("/avatar")
   public ResponseEntity<?> uploadAvatar(@RequestParam("file") MultipartFile file,
       @RequestParam("username") String username) {
-    System.out.println("Type: " + file.getContentType());
-    if (!Objects.equals(file.getContentType(), "image/jpeg")) {
+    if (!Objects.requireNonNull(file.getContentType()).contains("image/")) {
       return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE)
           .body(new MessageResponse("Wrong type"));
     }

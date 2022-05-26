@@ -1,6 +1,5 @@
 import axios from "axios";
 import NotificationService from "./NotificationService";
-import User from "../models/User";
 
 var store = require('store');
 const API_URL = "http://localhost:8080/api/"

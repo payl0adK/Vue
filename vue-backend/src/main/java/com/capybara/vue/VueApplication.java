@@ -26,12 +26,12 @@ public class VueApplication {
   // TODO: REMOVE THAT TRASH
   @PostConstruct
   protected void init() {
-    PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-    String password = passwordEncoder.encode("123");
-    List<Authority> authorities = new ArrayList<>();
-    authorities.add(new Authority("USER", "User role"));
-    authorities.add(new Authority("ADMIN", "Admin role"));
-    userRepository.save(new User("capybara", password,   authorities));
+    //PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    //String password = passwordEncoder.encode("123");
+    //List<Authority> authorities = new ArrayList<>();
+    //authorities.add(new Authority("USER", "User role"));
+    //authorities.add(new Authority("ADMIN", "Admin role"));
+    //userRepository.save(new User("capybara", password,   authorities));
 
   }
 }

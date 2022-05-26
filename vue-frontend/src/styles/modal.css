@@ -41,12 +41,12 @@
     font-size: 14px;
 }
 .uploadfile__avatar {
-    width: 220px;
-    height: 220px;
-    display: flex;
-    border-radius: 50%;
-    margin: 0 auto;
-    padding: 10px;
+    width: 220px!important;
+    height: 220px!important;
+    display: flex!important;
+    border-radius: 50%!important;
+    margin: 0 auto!important;
+    padding: 10px!important;
 }
 
 .inputFileBtn input {
