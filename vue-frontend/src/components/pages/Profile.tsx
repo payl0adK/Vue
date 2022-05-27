@@ -1,50 +1,18 @@
 import React, {useState, useEffect} from 'react'
 import '../../styles/profile.css'
-import axios from "axios";
+import User from "../../models/User";
 import {useParams} from "react-router-dom"
-import NotificationService from '../../services/NotificationService';
 import UploadAvatarButton from '../UI/UploadAvatarButton';
-var store = require('store');
+
+// Hooks
+import useAuthorizedUser from '../../hooks/useAuthorizedUser';
+import useGetUserByName from '../../hooks/useGetUserByName';
 
 const Profile = function () {
-    const [authorizedUser, setAuthorizedUser] = useState("");  
-    const [user, setUser] = useState("");
     const parameters = useParams();
-    const url = "http://localhost:8080/api/auth/userinfo";
-
-    useEffect(() => {
-        getUserProfile();
-        getAuthorizedUser();
-    }, []);
-
-    const getAuthorizedUser = () => {
-        var bearer = 'Bearer' + " " + store.get('token').jwt; 
-        axios.get(url, {
-            headers: {
-                Authorization: bearer
-            }
-        })
-        .then((response) => {    
-        setAuthorizedUser(response.data);
-        })
-        
-    }
+    const authorizedUser: User = useAuthorizedUser();
+    const user: User = useGetUserByName(parameters.username);
     
-    const getUserProfile = () => {
-        axios.get("http://localhost:8080/api/user", {
-            params: {
-                username: parameters.username
-            },
-        })
-        .then((response) => {
-            setUser(response.data);
-        })
-        .catch((error) => {
-            if (error.response.status == 404) {
-                NotificationService.sendErrorNotification("User doesn't exists", 3000);
-            }
-        })
-    }    
     return (
         <div className="profile_root">
 
@@ -72,7 +40,7 @@ const Profile = function () {
 
             <ul className="nav nav-pills" id="pills-tab" role="tablist">
                 <li className="nav-item" role="presentation">
-                    <button className="nav-link active" id="pills-articles" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Articles</button>
+                    <button className="nav-link active" id="pills-articles" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Posts</button>
                 </li>
                 <li className="nav-item" role="presentation">
                     <button className="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Comments</button>
@@ -82,13 +50,13 @@ const Profile = function () {
                 </li>
             </ul>
             <div className="tab-content" id="pills-tabContent">
-                <div className="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-articles">
+                <div className="tab-pane show active" id="pills-home" role="tabpanel" aria-labelledby="pills-articles">
                     Posts
                 </div>
-                <div className="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                <div className="tab-pane" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                     Comments
                 </div>
-                <div className="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+                <div className="tab-pane" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
                     Articles
                 </div>
             </div>

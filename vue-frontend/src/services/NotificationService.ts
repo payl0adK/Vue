@@ -3,7 +3,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 class NotificationService {
-    sendSuccessNotification (message, time) {
+    sendSuccessNotification (message: string, time: number) {
         toast.success(message, {
             position: "bottom-right",
             autoClose: time,
@@ -15,7 +15,7 @@ class NotificationService {
             });
     }
 
-    sendErrorNotification (message, time) {
+    sendErrorNotification (message: string, time: number) {
         toast.error(message, {
             position: "bottom-right",
             autoClose: time,

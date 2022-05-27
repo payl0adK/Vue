@@ -6,7 +6,9 @@ import PostList from "../lists/PostList";
 // Styles
 import "../../styles/home.css";
 
+
 export const Home = () => {
+
   return (
     <div className="home_root">
       <div className="container">

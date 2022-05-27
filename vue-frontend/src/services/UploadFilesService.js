@@ -13,7 +13,7 @@ class UploadFilesService {
             },
             onUploadProgress,
         })
-        .then((response) => {
+        .then(() => {
             NotificationService.sendSuccessNotification("Avatar successfully uploaded", 3000);
         })
         .catch((error) => {

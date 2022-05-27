@@ -1,7 +1,7 @@
 import Authority from "./Authority";
 
 export default class User {
-    private _id: BigInteger;
+    private _id: number;
     private _username: string;
     private _password: string;
     private _avatarUrl: string;
@@ -9,7 +9,7 @@ export default class User {
     private _authorities: Array<Authority>;
 
     constructor(
-        id: BigInteger, 
+        id: number, 
         username: string, 
         password: string, 
         avatarUrl: string, 
